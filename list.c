@@ -22,6 +22,9 @@ list_t* insert_sorted(list_t* head, list_t* new_element) {
 			if(previous != NULL){
                               previous->next = new_element;
                         }
+			else{
+			      head = new_element;
+                        }
 			not_inserted = 0;
                         break;
 		}
