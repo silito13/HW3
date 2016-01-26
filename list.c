@@ -11,6 +11,28 @@ list_t* insert_sorted(list_t* head, list_t* new_element) {
 	assert(head != NULL);
 	assert(new_element != NULL);
 
+	list_t *current = head;
+        list_t *previous = NULL;
+
+	int not_inserted;
+	not_inserted = 1;
+	while(current->next != NULL){
+		if(new_element->index < current->index){
+			new_element->next = current;
+			if(previous != NULL){
+                              previous->next = new_element;
+                        }
+			not_inserted = 0;
+                        break;
+		}
+                 previous = current;
+		current = current->next;
+	}
+	if(not_inserted == 1){
+		current->next = new_element;
+		new_element->next = NULL;
+	}
+
 	return head;
 }
 
@@ -18,6 +40,17 @@ list_t* insert_sorted(list_t* head, list_t* new_element) {
 // the resulting list. You do not need to preserve the original list.
 list_t* reverse(list_t* head) {
 	assert(head != NULL);
+	
+	list_t *tracker = head;
+	list_t *previous = NULL;
+	list_t *next_element;
+	while(tracker != NULL){
+		next_element = tracker->next;
+		tracker->next = previous;
+		previous = tracker;
+		tracker = next_element;
+	}
+        head = previous;
 
 	return head;
 }
